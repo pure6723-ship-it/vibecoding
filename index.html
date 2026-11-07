@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>지구의 자전과 공전 학습지</title>
+    <style>
+        body { font-family: 'Malgun Gothic', sans-serif; background-color: #f4f7f6; color: #333; padding: 20px; }
+        .container { max-width: 800px; margin: 0 auto; background-color: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        h1 { text-align: center; color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px; margin-bottom: 30px; }
+        .student-info { display: flex; gap: 10px; margin-bottom: 30px; flex-wrap: wrap; }
+        .student-info div { flex: 1; min-width: 120px; }
+        .student-info label { display: block; font-weight: bold; margin-bottom: 5px; }
+        .student-info input { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        .question-block { margin-bottom: 25px; padding: 15px; background-color: #f9f9f9; border-left: 4px solid #3498db; border-radius: 4px; }
+        .question-title { font-weight: bold; margin-bottom: 10px; font-size: 1.1em; }
+        .options label { display: block; margin-bottom: 8px; cursor: pointer; }
+        .short-answer { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        .submit-btn { display: block; width: 100%; padding: 15px; background-color: #3498db; color: white; font-size: 1.2em; font-weight: bold; border: none; border-radius: 4px; cursor: pointer; transition: background-color 0.3s; }
+        .submit-btn:hover { background-color: #2980b9; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🌍 과학 학습지: 지구의 자전과 공전</h1>
+    
+    <form id="worksheetForm">
+        <!-- 인적 사항 -->
+        <div class="student-info">
+            <div>
+                <label for="grade">학년</label>
+                <input type="number" id="grade" required min="1" max="6">
+            </div>
+            <div>
+                <label for="classNum">반</label>
+                <input type="number" id="classNum" required min="1" max="20">
+            </div>
+            <div>
+                <label for="studentNum">번호</label>
+                <input type="number" id="studentNum" required min="1" max="50">
+            </div>
+            <div>
+                <label for="studentName">이름</label>
+                <input type="text" id="studentName" required>
+            </div>
+        </div>
+
+        <!-- 객관식 문제 -->
+        <div class="question-block">
+            <div class="question-title">1. 지구의 자전 방향은 어느 쪽입니까?</div>
+            <div class="options">
+                <label><input type="radio" name="q1" value="1" required> ① 동에서 서로</label>
+                <label><input type="radio" name="q1" value="2"> ② 서에서 동으로</label>
+                <label><input type="radio" name="q1" value="3"> ③ 북에서 남으로</label>
+                <label><input type="radio" name="q1" value="4"> ④ 남에서 북으로</label>
+            </div>
+        </div>
+
+        <div class="question-block">
+            <div class="question-title">2. 지구가 태양을 중심으로 한 바퀴 도는 데 걸리는 시간(주기)은 얼마입니까?</div>
+            <div class="options">
+                <label><input type="radio" name="q2" value="1" required> ① 하루 (약 24시간)</label>
+                <label><input type="radio" name="q2" value="2"> ② 일주일</label>
+                <label><input type="radio" name="q2" value="3"> ③ 한 달 (약 30일)</label>
+                <label><input type="radio" name="q2" value="4"> ④ 일 년 (약 365일)</label>
+            </div>
+        </div>
+
+        <div class="question-block">
+            <div class="question-title">3. 다음 중 지구의 '자전'으로 인해 나타나는 현상이 아닌 것은 무엇입니까?</div>
+            <div class="options">
+                <label><input type="radio" name="q3" value="1" required> ① 낮과 밤이 반복된다.</label>
+                <label><input type="radio" name="q3" value="2"> ② 태양이 동쪽에서 떠서 서쪽으로 지는 것처럼 보인다.</label>
+                <label><input type="radio" name="q3" value="3"> ③ 계절의 변화가 생긴다.</label>
+                <label><input type="radio" name="q3" value="4"> ④ 밤하늘의 별들이 하루에 한 바퀴씩 도는 것처럼 보인다.</label>
+            </div>
+        </div>
+
+        <!-- 주관식 문제 -->
+        <div class="question-block">
+            <div class="question-title">4. 지구가 자전축을 중심으로 하루에 한 바퀴씩 도는 운동을 무엇이라고 합니까?</div>
+            <input type="text" class="short-answer" id="q4" required placeholder="정답을 입력하세요">
+        </div>
+
+        <div class="question-block">
+            <div class="question-title">5. 지구가 태양을 중심으로 1년에 한 바퀴씩 도는 운동을 무엇이라고 합니까?</div>
+            <input type="text" class="short-answer" id="q5" required placeholder="정답을 입력하세요">
+        </div>
+
+        <!-- 제출 버튼 -->
+        <button type="submit" class="submit-btn" id="submitBtn">제출하기</button>
+    </form>
+</div>
+
+<!-- Firebase SDK -->
+<script type="module">
+    // Firebase 앱 초기화와 Firestore 데이터베이스(addDoc, collection) 함수를 임포트합니다.
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/13.2.0/firebase-app.js";
+    import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/13.2.0/firebase-firestore.js";
+
+    // 전달해주신 Firebase 설정
+    const firebaseConfig = {
+        apiKey: "AIzaSyDvf5zZPkBlGEfsIDas-r0ltr7oSdJUjfM",
+        authDomain: "vibecoding-2c28d.firebaseapp.com",
+        projectId: "vibecoding-2c28d",
+        storageBucket: "vibecoding-2c28d.firebasestorage.app",
+        messagingSenderId: "79812044924",
+        appId: "1:79812044924:web:347b069948024f7a2981f9"
+    };
+
+    // Firebase 초기화 및 Firestore 인스턴스 생성
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    // 폼 제출 이벤트 처리
+    document.getElementById('worksheetForm').addEventListener('submit', async (e) => {
+        e.preventDefault(); // 페이지 새로고침 방지
+
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.disabled = true;
+        submitBtn.textContent = '제출 중...';
+
+        // 학생 정보 수집
+        const grade = document.getElementById('grade').value;
+        const classNum = document.getElementById('classNum').value;
+        const studentNum = document.getElementById('studentNum').value;
+        const studentName = document.getElementById('studentName').value;
+
+        // 답안 수집
+        const q1 = document.querySelector('input[name="q1"]:checked').value;
+        const q2 = document.querySelector('input[name="q2"]:checked').value;
+        const q3 = document.querySelector('input[name="q3"]:checked').value;
+        const q4 = document.getElementById('q4').value;
+        const q5 = document.getElementById('q5').value;
+
+        try {
+            // Firestore 'worksheets' 컬렉션에 데이터 추가
+            await addDoc(collection(db, "worksheets"), {
+                studentInfo: {
+                    grade: grade,
+                    class: classNum,
+                    number: studentNum,
+                    name: studentName
+                },
+                answers: {
+                    q1: q1,
+                    q2: q2,
+                    q3: q3,
+                    q4: q4,
+                    q5: q5
+                },
+                submittedAt: new Date()
+            });
+
+            alert("성공적으로 제출되었습니다! 참 잘했어요 👏");
+            document.getElementById('worksheetForm').reset();
+            
+        } catch (error) {
+            console.error("Error adding document: ", error);
+            alert("제출 중 오류가 발생했습니다. 선생님께 문의해주세요.");
+        } finally {
+            submitBtn.disabled = false;
+            submitBtn.textContent = '제출하기';
+        }
+    });
+</script>
+
+</body>
+</html>
